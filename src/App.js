@@ -28,45 +28,69 @@ class App extends Component {
         { name: 'Rana', age: 22 },
         { name: 'Osama', age: 22 },
         { name: 'Ahmad', age: 38 }],
-
-
       arrname: [],
-      arrname2: [],
+      // arrname2: [],
       arrage: []
     }
+    var flage = "";
+    var flage2 = "";
+    var checkflag = "";
+    var arrname2 = [];
+    var arrage2 = [];
+
     for (var i = 0; i < this.state.arr.length; i++) {
+      for (var j = 0; j < this.state.arr.length; j++) {
+        if (this.state.arr[i].name === this.state.arr[j].name) {
+          flage = "true1";
 
-      this.state.arrname.push(this.state.arr[i].name)
-      this.state.arrage.push(this.state.arr[i].age)
+        }
+        if (this.state.arr[i].age === this.state.arr[j].age) {
+          flage += "true2";
+        }
+
+      }
+      if (flage === "true1true2") {
+        flage = "";
+        if (arrname2.includes(this.state.arr[i].name) === false) {
+          arrname2.push(this.state.arr[i].name);
+        } else {
+
+        }
+        if (arrage2.includes(this.state.arr[i].age) === false) {
+          arrage2.push(this.state.arr[i].age);
+        } else {
+
+        }
+        continue;
+      }
+      if (flage !== "true1") {
+        arrname2.push(this.state.arr[i].name);
+      }
+      if (flage !== "true2") {
+        arrage2.push(this.state.arr[i].age);
+      }
+      flage = "";
+
     }
-    for(var i=0;i<this.state.arrname.length;i++){
-      var x=this.state.arrname[i];
-      // console.log(x);
-  
-      // var j=1;
-      // for(var key in this.state.arrname){
-      //  // console.log(key);
-      //   j++;
-      //   if(x===this.state.arrname[key]){
-    
-      //    this.state.arrname.splice(j,1); 
-      //    j--;   
-      //   }
-      // }
-     
 
-    } 
-    console.log(this.state.arrname);
+    this.state.arrname = arrname2;
+    this.state.arrage = arrage2;
+    // console.log(this.state.arrname);
+    // console.log(this.state.arrage);
+
 
 
 
 
   }
   changerender = () => {
-    let arrcopy = [...this.state.arr];
-    arrcopy.pop();
+    let arrCopyName = [...this.state.arrname];
+    let arrCopeAge = [...this.state.arrage];
+    arrCopyName.pop();
+    arrCopeAge.pop();
     this.setState({
-      arr: arrcopy
+      arrname: arrCopyName,
+      arrage: arrCopeAge
     })
   };
   render() {
@@ -78,13 +102,13 @@ class App extends Component {
         <div >
           <dl><dd>names :</dd>
 
-            {this.state.arr.map(
+            {this.state.arrname.map(
 
 
               function (a, idx) {
 
                 return (
-                  <dd key={idx}>{a.name}</dd>)
+                  <dd key={idx}>{a}</dd>)
 
               }
             )
@@ -100,9 +124,9 @@ class App extends Component {
 
         </div>
         <div>  <dl><dd>ages :</dd>
-          {this.state.arr.map(function (a, idx) {
+          {this.state.arrage.map(function (a, idx) {
             return (
-              <dd key={idx}>{a.age}</dd>)
+              <dd key={idx}>{a}</dd>)
 
           })}</dl>
         </div>
